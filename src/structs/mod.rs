@@ -1,4 +1,6 @@
 pub mod game_data;
-pub mod Biome;
+pub mod biome;
+pub mod leg;
+pub mod location;
 
 

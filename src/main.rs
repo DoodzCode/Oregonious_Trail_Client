@@ -1,87 +1,101 @@
-extern crate chrome;
+mod structs;
+mod conditions_processor;
+
+extern crate chrono;
+use structs::game_data::Game_Data;
+use conditions_processor::cycle_conditions;
+
+struct Territory {
+    name: String
+}
+
+struct Biome {
+    name: String
+}
+
+struct Location {
+    name: String
+}
+
+#[derive(Debug)]
+struct Leg {
+    name: String,
+    destination: String,
+    distance: i32,  // 80
+    guide_note: String, // "west by north to Kansas River Crossing"
+}
+
+struct Game {
+    start_date: String,
+    legs: Vec<Leg>,
+    // locations: Locations,
+
+}
+
 
 fn main() {
 
-    #[derive(Debug)]
-    struct Leg {
-        // key: Something, // Unique ID
-        name: String,
-        // territory: Territory, // Missouri
-        // biome: Biome;
-        distance: i32,  // 80
-        guide_note: String, // "west by north to Kansas River Crossing"
-    }
-
-    impl Leg {
-        pub fn create() -> Leg {
-            Leg{name: "Test".to_string(), distance: 10, guide_note: "Test Note".to_string() }
-        }
-    }
-
-    struct Game {
-        start_date: String,
-        legs: Vec<Leg>,
-        // locations: Locations,
-
-    }
-
-    impl Game {
-        fn new() -> Game {
-            let mut legs: Vec<Leg> = Vec::new();
-            legs.push(Leg::create());
-            legs.push(Leg::create());
-            legs.push(Leg::create());
-
-            Game { start_date: "04/15/1844".to_string(), legs: legs }
-        }
-    }
-
-
-
     // startup
     println!("STARTUP");
-    let mut game: Game = Game::new();
 
+    let mut legs: Vec<Leg> = Vec::new();
 
-    
-    // let first_leg = Leg{name: "Test".to_string(), distance: 10, guide_note: "Test Note".to_string() };
-    // println!("{:?}", legs[1]);
-    
-    let mut b: String = "test".to_string();
-    println!("B: {}", b);
+    legs.push(Leg{
+        name: String::from("Leg-1"),
+        destination: String::from("Kansas River crossing"),
+        distance: 150,
+        guide_note: String::from("West by north about 5 or 6 days to Kansas River crossing."),
+    });
 
-    b = stuff(&b);
-    println!("B: {}", b);
+    legs.push(Leg{
+        name: String::from("Leg-2"),
+        destination: String::from("Platte River"),
+        distance: 150,
+        guide_note: String::from("Northwest, about 5 days to the Platte River."),
+    });
 
-    
-    
+    legs.push(Leg{
+        name: String::from("Leg-3"),
+        destination: String::from("Fort Kearney"),
+        distance: 150,
+        guide_note: String::from("Continue up south side of the Platte to Fort Kearney"),
+    });
+
+    legs.push(Leg{
+        name: String::from("Leg-4"),
+        destination: String::from("Fort Laramie"),
+        distance: 150,
+        guide_note: String::from("Follow the north fork of the Platte about 8 days to Fort Laramie."),
+    });
+
+    for leg in &legs { println!("ref {}, destination {}, distance {}, guide_note {}", leg.name, leg.destination, leg.distance, leg.guide_note );}
+
+    // let mut game: Game = Game::new();
+
+    let mut game_data: Game_Data = Game_Data::create_test();
+    println!("Week # {}", game_data.week_number);
+
     // main loop
-    let mut i:i32 = 0;    
     loop {
-        i = i+1;
-        if i > 26 {
+        if game_data.week_number > game_data.game_length - 1  {
             break;
         }
-        update(&i, &game.start_date);
+        cycle_conditions(&mut game_data);
+        // user prompt 
+        //cycle actions
+        // user prompt - go or no go.
+        
     }
+
 
     // shutdown
     
 }
 
-fn stuff(thing: &String) -> String {
-    println!("{}", thing);
-    let new_thing: String = thing.clone();
-    new_thing
-}
-
-fn update(i: &i32, start_date: &String) {
-
-    // Update Game Date
-    let current_date = start_date + (i * 7);
-    // let current_date = start_date + "00".to_string();
-
-}
+/*
+round
+    player turn
+*/
 
 
 

@@ -7,7 +7,28 @@ use crate::structs::game_data::Game_Data;
 
 pub fn cycle_conditions(game_data: &mut Game_Data) {
 
-    game_data.week_number += 1;
+    // calandar
+    // game_data.week_number += 1;                         //TODO: game_data.game_date::increment_week();
+    game_data.game_date.increment_week();
     println!("Week # {}", game_data.week_number);
+
+    // biomes
+
+    // determine which biomes have player in them
+
+    // loop through active biomes
+    
+        // output: chance_of_snow = snow_factor();
+        // input: d20
+        // input: is date in winter
+
+
+    // segments
+
+
+    // parties
+
+    
+
 
 }

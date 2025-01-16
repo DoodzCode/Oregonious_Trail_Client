@@ -1,0 +1,3 @@
+struct Biome {
+    name: String,
+}

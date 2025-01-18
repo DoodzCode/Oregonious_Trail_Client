@@ -2,7 +2,7 @@ mod structs;
 mod processors;
 
 extern crate chrono;
-use processors::report_processor::status_report;
+
 use structs::{
     game_data::Game_Data,
     // biome::Biome,
@@ -10,8 +10,9 @@ use structs::{
     // location::Location,
     // party::Party,
 };
+use processors::report_processor::status_report;
 use processors::conditions_processor::cycle_conditions;
-use processors::game_generator::generate_legs;
+use processors::game_generator::{generate_game, generate_legs};
 
 //TODO come back to the question of do we need territories to be separate?
 // struct Territory {
@@ -27,10 +28,9 @@ fn main() {
     println!(); 
 
 
-    let mut game_data: Game_Data = Game_Data::create_test();
-    
-    // println!("Initial Data: ");
-    // println!("{:?}", game_data);
+    let mut game_data: Game_Data = Game_Data::create_game();
+    let mut game_data: generate_game()
+
     status_report(&mut game_data);
 
     // main loop

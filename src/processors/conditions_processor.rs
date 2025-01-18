@@ -23,11 +23,16 @@ pub fn cycle_conditions(game_data: &mut Game_Data) {
         // input: is date in winter
 
 
-    // segments
+    // legs
 
 
-    // parties
+    // cycle through the parties
+    fn cycle_parties(party_count: u32) {
 
+    }
+
+
+    
     
 
 

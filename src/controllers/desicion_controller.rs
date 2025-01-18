@@ -1,4 +1,19 @@
+// collect initial data to start game
+
+pub fn get_initial_data() {
+  println!(how many players );
+
+  // add player
+  // name of party
+  // manifest
+  
+
+
+}
+
 // collect data to present
+ 
+
 // prompt for player input
 
 
@@ -8,3 +23,5 @@ pub fn get_input() -> String {
   let input: &str = r_input.trim();
   String::from(input).to_lowercase()
 }
+
+

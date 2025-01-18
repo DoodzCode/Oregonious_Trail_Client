@@ -1,6 +1,7 @@
 use crate::structs::{
     biome::Biome,
     leg::Leg,
+    party::Party,
 };
 use crate::processors::game_generator::generate_legs;
 
@@ -12,6 +13,7 @@ pub struct Game_Data{
     pub game_date: GameDate,
     pub biomes: Vec<Biome>,
     pub legs: Vec<Leg>,
+    pub parties: Vec<Party>,
 
 }
 
@@ -27,6 +29,7 @@ impl Game_Data {
             },
             biomes: Vec::new(),
             legs: generate_legs(),
+            parties: Vec::new(),
         };
 
         test_data.biomes.push(Biome{ name: String::from("Biome Uno") });

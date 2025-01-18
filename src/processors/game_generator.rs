@@ -1,6 +1,29 @@
 // use crate::structs::game_data::Game_Data;
 // use crate::structs::biome::Biome;
 use crate::structs::leg::Leg;
+use crate::structs::party::Party;
+
+
+pub fn generate_parties() -> Vec<Party> {
+    let mut parties: Vec<Party> = Vec::new();
+
+    parties.push(Party{
+        name: String::from("Red Team"),
+        position: 0,
+    });
+
+    parties.push(Party{
+        name: String::from("Blue Team"),
+        position: 0,
+    });
+
+    parties.push(Party{
+        name: String::from("Green Team"),
+        position: 0,
+    });
+
+    parties
+}
 
 
 pub fn generate_legs() -> Vec<Leg> {

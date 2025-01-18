@@ -1,13 +1,17 @@
 
+#[derive(Debug)]
 pub struct Party {
-  name: String,
-  current_mile: u16,
-  manifest: Manifest,
-  
+  pub name: String,
+  pub position: u16, 
 }
 
-// Overall structure for all things people and wagons
-struct Manifest {
-  // Holds data about people and wagon trains
-  // Supplies
+impl Party {
+  pub fn create(name: &str, position: u16) -> Party {
+    Party {
+      name: String::from(name),
+      position: position,
+    }
+  }
 }
+
+

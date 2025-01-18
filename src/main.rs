@@ -2,6 +2,7 @@ mod structs;
 mod processors;
 
 extern crate chrono;
+use processors::report_processor::status_report;
 use structs::{
     game_data::Game_Data,
     // biome::Biome,
@@ -17,18 +18,20 @@ use processors::game_generator::generate_legs;
 //     name: String
 // }
 
-
-
 fn main() {
 
     // startup
-    println!("STARTUP");
+    println!("-----------------------------------------------------------------------");
+    println!("SETUP");
+    println!("-----------------------------------------------------------------------");
+    println!(); 
 
 
     let mut game_data: Game_Data = Game_Data::create_test();
-    println!("Week # {}", game_data.game_date.week_number);
-
+    
+    // println!("Initial Data: ");
     println!("{:?}", game_data);
+    status_report();
 
     // main loop
     loop {
@@ -46,10 +49,21 @@ fn main() {
         
     }
 
+    // fn game_loop (game_cycle: u32) -> u32 {
+    //    cycle_conditions(structs::game_data);
+    //    game_cycle - 1
+    // }
 
     // shutdown
     
+
+
+    
 }
+
+
+
+
 
 /*
 round

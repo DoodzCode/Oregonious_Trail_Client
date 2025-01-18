@@ -1,8 +1,8 @@
+use crate::structs::game_data::Game_Data;
 
 
-use crate::structs::game_data;
 
-pub fn status_report() {
+pub fn status_report(game_data: &mut Game_Data) {
     println!("Status Report: ");
     println!("{:?}", game_data);
 

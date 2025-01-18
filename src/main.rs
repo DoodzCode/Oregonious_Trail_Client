@@ -30,8 +30,8 @@ fn main() {
     let mut game_data: Game_Data = Game_Data::create_test();
     
     // println!("Initial Data: ");
-    println!("{:?}", game_data);
-    status_report();
+    // println!("{:?}", game_data);
+    status_report(&mut game_data);
 
     // main loop
     loop {

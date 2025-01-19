@@ -3,7 +3,7 @@ use crate::structs::{
     leg::Leg,
     party::Party,
 };
-use crate::processors::game_generator::{generate_legs, generate_parties};
+use crate::processors::game_generator::{generate_legs};
 
 /// Game_Data - conditions (states) that are not influenced by the conditions of the trail (biomes, segments), or the parties (wagons, people, animals). 
 #[derive(Debug)]
@@ -13,7 +13,7 @@ pub struct Game_Data{
     pub game_date: GameDate,
     pub biomes: Vec<Biome>,
     pub legs: Vec<Leg>,
-    pub parties: Vec<Party>,
+    // pub parties: Vec<Party>,
     pub score: Vec<Player_Score>,
 }
 
@@ -29,15 +29,49 @@ impl Game_Data {
             },
             biomes: Vec::new(),
             legs: generate_legs(),
-            parties: generate_parties(),
+            // parties: generate_parties(),
             score: Vec::new(),
         };
 
         test_data.biomes.push(Biome{ name: String::from("Biome Uno") });
         test_data
+        }
 
+    pub fn change_state(&mut self, prop: Message) {
+        match prop.action {
+            ActionType::IncWeek => self.game_date.increment_week(),
         }
     }
+
+    pub fn change_party_state(prop: Message) {}
+    pub fn read_state() {}
+}
+
+pub struct Message {
+    // state_type: StateType,
+    // action_thing: String,
+    // set_position: String,
+    pub action: ActionType,
+}
+
+pub enum ActionType {
+    IncWeek,
+}
+
+
+// enum StateType {
+//     Party,
+//     World,
+//     Global,
+// }
+
+
+
+
+
+
+
+
 
 #[derive(Debug)]
 pub struct GameDate {
@@ -50,6 +84,7 @@ impl GameDate {
     pub fn increment_week(&mut self) {
         self.week_number += 1;
     }
+
 }
 
 // score 

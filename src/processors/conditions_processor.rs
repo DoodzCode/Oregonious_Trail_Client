@@ -1,5 +1,5 @@
 
-use crate::structs::game_data::Game_Data;
+use crate::structs::game_data::{Game_Data, Message, ActionType};
 
    // Update Game Date
     // let current_date = start_date + (i * 7);
@@ -8,10 +8,13 @@ use crate::structs::game_data::Game_Data;
 pub fn cycle_conditions(game_data: &mut Game_Data) {
 
     // calandar
-    // game_data.week_number += 1;                         //TODO: game_data.game_date::increment_week();
-    game_data.game_date.increment_week();
+    // game_data.week_number += 1;  
+    game_data.change_state(Message{action: ActionType::IncWeek});    //TODO: game_data.game_date::increment_week();
+    // game_data.game_date.increment_week();
+
     println!("Week # {}", game_data.game_date.week_number);
 
+    // change_state("increment player 2 position");
     // biomes
 
     // determine which biomes have player in them

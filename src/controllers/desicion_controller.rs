@@ -1,5 +1,7 @@
-// collect initial data to start game
+// Anything that handles inputs from various sources?
+// Listening for inputs and directing inputs to appropriate places
 
+/// collect initial data to start game
 pub fn get_initial_data() {
   println!(how many players );
 

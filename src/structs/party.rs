@@ -4,6 +4,7 @@ pub struct Party {
   pub name: String,
   position: u16, 
   pub head_count: u16,
+  // pub wagons: Vec<Wagon>,
 }
 
 impl Party {
@@ -34,7 +35,6 @@ impl Party {
   pub fn give_position(&self) -> &u16 {
     &self.position
   }
-
 
 }
 

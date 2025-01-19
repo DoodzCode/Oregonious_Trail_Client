@@ -14,7 +14,6 @@ pub fn get_initial_data() {
 }
 
 // collect data to present
- 
 
 // prompt for player input
 

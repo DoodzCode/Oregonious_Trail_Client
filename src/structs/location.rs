@@ -1,5 +1,4 @@
-
 #[derive(Debug)]
 pub struct Location {
-  name: String,
+    name: String,
 }

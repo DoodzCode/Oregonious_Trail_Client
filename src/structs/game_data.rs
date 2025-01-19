@@ -1,13 +1,9 @@
-use crate::structs::{
-    biome::Biome,
-    leg::Leg,
-    party::Party,
-};
-use crate::processors::game_generator::{generate_legs};
+use crate::processors::game_generator::generate_legs;
+use crate::structs::{biome::Biome, leg::Leg, party::Party};
 
-/// Game_Data - conditions (states) that are not influenced by the conditions of the trail (biomes, segments), or the parties (wagons, people, animals). 
+/// Game_Data - conditions (states) that are not influenced by the conditions of the trail (biomes, segments), or the parties (wagons, people, animals).
 #[derive(Debug)]
-pub struct Game_Data{
+pub struct Game_Data {
     pub start_date: String,
     pub game_length: u8,
     pub game_date: GameDate,
@@ -17,15 +13,14 @@ pub struct Game_Data{
     pub score: Vec<Player_Score>,
 }
 
-
 impl Game_Data {
     pub fn create_game() -> Game_Data {
-
-        let mut test_data = Game_Data { 
+        let mut test_data = Game_Data {
             start_date: String::from("April 15, 1842"),
             game_length: 26,
             game_date: GameDate {
-                week_number: 0, month: String::from("April"),
+                week_number: 0,
+                month: String::from("April"),
             },
             biomes: Vec::new(),
             legs: generate_legs(),
@@ -33,9 +28,11 @@ impl Game_Data {
             score: Vec::new(),
         };
 
-        test_data.biomes.push(Biome{ name: String::from("Biome Uno") });
+        test_data.biomes.push(Biome {
+            name: String::from("Biome Uno"),
+        });
         test_data
-        }
+    }
 
     pub fn change_state(&mut self, prop: Message) {
         match prop.action {
@@ -58,20 +55,11 @@ pub enum ActionType {
     IncWeek,
 }
 
-
 // enum StateType {
 //     Party,
 //     World,
 //     Global,
 // }
-
-
-
-
-
-
-
-
 
 #[derive(Debug)]
 pub struct GameDate {
@@ -84,15 +72,14 @@ impl GameDate {
     pub fn increment_week(&mut self) {
         self.week_number += 1;
     }
-
 }
 
-// score 
+// score
 #[derive(Debug)]
 pub struct Player_Score {
     pub party_name: String,
     pub position: u32,
-    pub head_count: u32, 
+    pub head_count: u32,
 }
 
 impl Player_Score {

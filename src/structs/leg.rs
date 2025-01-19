@@ -2,7 +2,7 @@
 #[derive(Debug)]
 pub struct Leg {
     pub name: String,
-    pub distance: i32,  // 80
+    pub distance: i32,      // 80
     pub guide_note: String, // "west by north to Kansas River Crossing"
 }
 

@@ -4,7 +4,6 @@ mod structs;
 extern crate chrono;
 
 use processors::conditions_processor::cycle_conditions;
-// use processors::game_generator::{generate_game, generate_legs};
 use processors::report_processor::status_report;
 use structs::{
     game_data::Game_Data,
@@ -15,13 +14,6 @@ use structs::{
 };
 
 //TODO come back to the question of do we need territories to be separate?
-// struct Territory {
-//     name: String
-// }
-
-// fn GameDataChanger(req: String) -> String {
-
-// }
 
 fn main() {
     // startup
@@ -39,7 +31,7 @@ fn main() {
     loop {
         if game_data.game_date.week_number > game_data.game_length - 1 {
             break;
-        } 
+        }
         cycle_conditions(&mut game_data);
         // user prompt
         //* decision_controller();
@@ -57,4 +49,3 @@ fn main() {
 round
     player turn
 */
-

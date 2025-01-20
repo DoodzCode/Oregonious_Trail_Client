@@ -1,3 +1,5 @@
+use core::fmt;
+
 /// struct for legs (segments) of the trail
 #[derive(Debug)]
 pub struct Leg {
@@ -16,4 +18,10 @@ impl Leg {
     }
 
     //TODO add a generator function
+}
+
+impl fmt::Display for Leg {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Leg.name: {} \n Leg.distance: {} \n guide_note: {} \n", self.name, self.distance, self.guide_note)
+    }
 }

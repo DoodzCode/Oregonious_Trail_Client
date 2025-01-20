@@ -1,5 +1,6 @@
 use crate::processors::game_generator::generate_legs;
 use crate::structs::{biome::Biome, leg::Leg, party::Party};
+use std::fmt::{self, write};
 
 /// Game_Data - conditions (states) that are not influenced by the conditions of the trail (biomes, segments), or the parties (wagons, people, animals).
 #[derive(Debug)]
@@ -44,6 +45,31 @@ impl Game_Data {
     pub fn read_state() {}
 }
 
+impl fmt::Display for Game_Data {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        write!(format, "start_date: {} \n", self.start_date)?;
+        write!(format, "game_length: {} \n", self.game_length)?;
+        write!(format, "game_date.week_number: {} \n", self.game_date.week_number)?;
+        write!(format, "game_date.month: {} \n", self.game_date.month)?;
+
+        writeln!(format, "Biomes:")?;
+        for biome in &self.biomes {
+            writeln!(format, " {}", biome)?;
+        }
+
+        writeln!(format, "Legs:")?;
+        for leg in &self.legs {
+            writeln!(format, " {}", leg)?;
+        }
+
+        writeln!(format, "Player_Score:")?;
+        for score in &self.score {
+            writeln!(format, " {}", score)?;
+        }
+
+        Ok(())
+    }
+}
 pub struct Message {
     // state_type: StateType,
     // action_thing: String,
@@ -94,5 +120,11 @@ impl Player_Score {
     }
     pub fn decrement_head_count(&mut self, dec: u32) {
         self.head_count -= dec;
+    }
+}
+
+impl fmt::Display for Player_Score {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Player_Score.party_name: {} \n Player_Score.position: {} \n Player_Score.head_count: {} \n", self.party_name, self.position, self.head_count)
     }
 }

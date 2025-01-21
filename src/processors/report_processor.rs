@@ -1,8 +1,8 @@
 use std::fmt::Debug;
 
-use crate::structs::game_data::Game_Data;
+use crate::structs::game_state::GameState;
 
-pub fn status_report(game_data: &mut Game_Data) {
+pub fn status_report(game_data: &mut GameState) {
     println!("Status Report: ");
     println!("{}", game_data);
 

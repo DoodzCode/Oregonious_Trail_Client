@@ -1,22 +1,23 @@
-use crate::processors::game_generator::generate_legs;
-use crate::structs::{biome::Biome, leg::Leg, party::Party};
+// use crate::processors::game_generator::generate_segments;
+use crate::structs::{biome::Biome, segment::Segment, location::Location, party::Party};
 use std::fmt::{self, write};
 
-/// Game_Data - conditions (states) that are not influenced by the conditions of the trail (biomes, segments), or the parties (wagons, people, animals).
+/// GameState - conditions (states) that are not influenced by the conditions of the trail (biomes, segments), or the parties (wagons, people, animals).
 #[derive(Debug)]
-pub struct Game_Data {
+pub struct GameState {
     pub start_date: String,
     pub game_length: u8,
     pub game_date: GameDate,
     pub biomes: Vec<Biome>,
-    pub legs: Vec<Leg>,
-    // pub parties: Vec<Party>,
+    pub segments: Vec<Segment>,
+    pub locations: Vec<Location>,
+    pub parties: Vec<Party>,
     pub score: Vec<Player_Score>,
 }
 
-impl Game_Data {
-    pub fn create_game() -> Game_Data {
-        let mut test_data = Game_Data {
+impl GameState {
+    pub fn create_game() -> GameState {
+        let mut test_data = GameState {
             start_date: String::from("April 15, 1842"),
             game_length: 26,
             game_date: GameDate {
@@ -24,8 +25,9 @@ impl Game_Data {
                 month: String::from("April"),
             },
             biomes: Vec::new(),
-            legs: generate_legs(),
-            // parties: generate_parties(),
+            segments: Vec::new(),
+            locations: Vec::new(),
+            parties: Vec::new(),
             score: Vec::new(),
         };
 
@@ -45,7 +47,7 @@ impl Game_Data {
     pub fn read_state() {}
 }
 
-impl fmt::Display for Game_Data {
+impl fmt::Display for GameState {
     fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
         write!(format, "start_date: {} \n", self.start_date)?;
         write!(format, "game_length: {} \n", self.game_length)?;
@@ -57,8 +59,8 @@ impl fmt::Display for Game_Data {
             writeln!(format, " {}", biome)?;
         }
 
-        writeln!(format, "Legs:")?;
-        for leg in &self.legs {
+        writeln!(format, "segments:")?;
+        for leg in &self.segments {
             writeln!(format, " {}", leg)?;
         }
 
@@ -94,7 +96,7 @@ pub struct GameDate {
 }
 
 impl GameDate {
-    // game_data.game_data::increment_week();
+    // GameState.GameState::increment_week();
     pub fn increment_week(&mut self) {
         self.week_number += 1;
     }

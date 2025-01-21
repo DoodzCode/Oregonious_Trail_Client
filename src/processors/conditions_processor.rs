@@ -1,17 +1,18 @@
-use crate::structs::game_data::{ActionType, Game_Data, Message};
+use crate::structs::game_state::{GameState, ActionType, Message};
 
 // Update Game Date
 // let current_date = start_date + (i * 7);
 // let current_date = start_date + "00".to_string();
 
-pub fn cycle_conditions(game_data: &mut Game_Data) {
+pub fn cycle_conditions(game_state: &mut GameState) {
     // calandar
-    // game_data.week_number += 1;
-    game_data.change_state(Message {
+    
+    game_state.change_state(Message{
         action: ActionType::IncWeek,
     });
 
-    println!("Week # {}", game_data.game_date.week_number);
+    // let mut week: u8 = game_state::GameDate::increment_week(&mut self);
+    println!("Week # {}", game_state.game_date.week_number);
 
     // biomes
 

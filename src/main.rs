@@ -6,7 +6,7 @@ extern crate chrono;
 use processors::conditions_processor::cycle_conditions;
 use processors::report_processor::status_report;
 use structs::{
-    game_data::Game_Data,
+    game_state::GameState,
     // biome::Biome,
     // leg::Leg,
     // location::Location,
@@ -23,7 +23,7 @@ fn main() {
     println!();
 
     // let mut game_data: Game_Data = Game_Data::create_game();
-    let mut game_data: Game_Data = Game_Data::create_game();
+    let mut game_data: GameState = GameState::create_game();
 
     status_report(&mut game_data);
 

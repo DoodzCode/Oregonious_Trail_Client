@@ -1,9 +1,10 @@
 // use crate::processors::game_generator::generate_segments;
 use crate::structs::{biome::Biome, segment::Segment, location::Location, party::Party};
 use std::fmt::{self, write};
+use serde::{Serialize, Deserialize};
 
 /// GameState - conditions (states) that are not influenced by the conditions of the trail (biomes, segments), or the parties (wagons, people, animals).
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct GameState {
     pub start_date: String,
     pub game_length: u8,
@@ -89,7 +90,7 @@ pub enum ActionType {
 //     Global,
 // }
 
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct GameDate {
     pub week_number: u8,
     pub month: String,
@@ -103,7 +104,7 @@ impl GameDate {
 }
 
 // score
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Player_Score {
     pub party_name: String,
     pub position: u32,

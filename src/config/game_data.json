@@ -16,8 +16,34 @@
       "name": "Biome Tres"
     }
   ],
-  "segments": [],
-  "locations": [],
-  "parties": [],
+  "segments": [{
+    "name": "Seg 1",
+    "distance": 80,
+    "guide_note": "west by north to Kansas River Crossing"
+  }],
+  "locations": [
+    {
+      "name": "Test Location 1",
+      "elevation": 600,
+      "mile_marker": 300
+    }
+  ],
+  "parties": [
+    {
+      "name": "Red Party",
+      "position": 300,
+      "head_count": 140
+    },
+    {
+      "name": "Blue Party",
+      "position": 300,
+      "head_count": 140
+    },
+    {
+      "name": "Green Party",
+      "position": 300,
+      "head_count": 140
+    }
+  ],
   "score": []
 }

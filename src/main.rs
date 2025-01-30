@@ -19,11 +19,11 @@ fn main() {
     println!("-----------------------------------------------------------------------");
     println!();
 
-    // let mut game_data: Game_Data = Game_Data::create_game();
-    // let mut game_data: GameState = GameState::create_game();
     let mut game_data: GameState = load_game_from_file("src/config/game_data.json").expect("Failed to load game data");
 
     status_report(&mut game_data);
+
+    println!("{:?}", &game_data);
 
     // main loop
     loop {

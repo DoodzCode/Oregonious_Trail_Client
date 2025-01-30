@@ -19,13 +19,6 @@ pub fn save_to_file<T: Serialize>(data: &T, filename: &str) -> std::io::Result<(
   Ok(())
 }
 
-// pub fn load_biome_from_file(filename: &str) -> serde_json::Result<Biome> {
-//   let file = File::open(filename).map_err(serde_json::Error::io)?;
-//   let reader = BufReader::new(file);
-//   let biome: Biome = serde_json::from_reader(reader)?;
-//   Ok(biome)
-// }
-
 pub fn load_game_from_file(filename: &str) -> serde_json::Result<GameState> {
   let file = File::open(filename).map_err(serde_json::Error::io)?;
   let reader = BufReader::new(file);

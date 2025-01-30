@@ -19,18 +19,18 @@ fn main() {
     println!("-----------------------------------------------------------------------");
     println!();
 
-    let mut game_data: GameState = load_game_from_file("src/config/game_data.json").expect("Failed to load game data");
+    let mut game_state: GameState = load_game_from_file("src/config/game_state.json").expect("Failed to load game data");
 
-    status_report(&mut game_data);
+    status_report(&mut game_state);
 
-    println!("{:?}", &game_data);
+    println!("{:?}", &game_state);
 
     // main loop
     loop {
-        if game_data.game_date.week_number > game_data.game_length - 1 {
+        if game_state.game_date.week_number > game_state.game_length - 1 {
             break;
         }
-        cycle_conditions(&mut game_data);
+        cycle_conditions(&mut game_state);
         // user prompt
         //* decision_controller();
         //cycle actions

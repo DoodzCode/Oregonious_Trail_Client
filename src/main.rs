@@ -8,7 +8,7 @@ use processors::conditions_processor::cycle_conditions;
 use processors::report_processor::status_report;
 use structs::game_state::GameState;
 
-use utils::{d20, save_to_file, load_game_from_file};
+use utils::{d20, save_to_file, load_game_from_file, get_input};
 
 //TODO come back to the question of do we need territories to be separate?
 
@@ -36,6 +36,15 @@ fn main() {
         //cycle actions
         //* actions_processor();
         // user prompt - go or no go.
+        for party in &game_state.parties {
+            println!("{:?} do you want to 1. proceed or 2. delay?", party.name);
+            let cmd: String = get_input();     
+            match cmd.as_str() {
+                "1" => println!("{:?} decides to proceed.", party.name),
+                "2" => println!("{:?} decides to delay.", party.name),
+                _ => println!("Invalid Response")
+            } 
+        }
         //* decision_controller();
         // Global Report
     }

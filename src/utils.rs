@@ -1,7 +1,7 @@
 use rand::Rng;
 use serde::Serialize;
 use std::fs::{File, remove_file};
-use std::io::{Write, BufReader};
+use std::io::{Write, BufReader, stdin};
 use std::path::Path;
 
 use crate::structs::game_state::GameState;
@@ -24,6 +24,14 @@ pub fn load_game_from_file(filename: &str) -> serde_json::Result<GameState> {
   let reader = BufReader::new(file);
   let game_state: GameState = serde_json::from_reader(reader)?;
   Ok(game_state)
+}
+
+
+pub fn get_input() -> String {
+    let mut r_input: String = String::new();
+    stdin().read_line(&mut r_input).unwrap();
+    let input: &str = r_input.trim();
+    String::from(input).to_lowercase()
 }
 
 

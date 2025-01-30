@@ -36,11 +36,15 @@ fn main() {
         //cycle actions
         //* actions_processor();
         // user prompt - go or no go.
-        for party in &game_state.parties {
+        for party in &mut game_state.parties {
+            println!("{:?}", party.give_position());
             println!("{:?} do you want to 1. proceed or 2. delay?", party.name);
             let cmd: String = get_input();     
             match cmd.as_str() {
-                "1" => println!("{:?} decides to proceed.", party.name),
+                "1" => {
+                    println!("{:?} decides to proceed.", party.name);
+                    party.increment_position(350);
+                },
                 "2" => println!("{:?} decides to delay.", party.name),
                 _ => println!("Invalid Response")
             } 

@@ -1,8 +1,10 @@
 use rand::Rng;
 use serde::Serialize;
 use std::fs::{File, remove_file};
-use std::io::Write;
+use std::io::{Write, BufReader};
 use std::path::Path;
+
+use crate::structs::game_state::GameState;
 
 pub fn d20() -> u8 {
   let mut rng = rand::thread_rng();
@@ -16,6 +18,21 @@ pub fn save_to_file<T: Serialize>(data: &T, filename: &str) -> std::io::Result<(
   file.write_all(json.as_bytes())?;
   Ok(())
 }
+
+// pub fn load_biome_from_file(filename: &str) -> serde_json::Result<Biome> {
+//   let file = File::open(filename).map_err(serde_json::Error::io)?;
+//   let reader = BufReader::new(file);
+//   let biome: Biome = serde_json::from_reader(reader)?;
+//   Ok(biome)
+// }
+
+pub fn load_game_from_file(filename: &str) -> serde_json::Result<GameState> {
+  let file = File::open(filename).map_err(serde_json::Error::io)?;
+  let reader = BufReader::new(file);
+  let game_state: GameState = serde_json::from_reader(reader)?;
+  Ok(game_state)
+}
+
 
 
 #[cfg(test)]
@@ -46,5 +63,12 @@ mod test {
     let remove_result: Result<(), std::io::Error> = remove_file("src/config/test_data.json");
     assert!(remove_result.is_ok());
   }
+
+  // #[test]
+  // fn test_load_biome_from_file() {
+  //   let filename = "src/config/test_biome.json";
+  //   let biome = load_biome_from_file(filename).unwrap();
+  //   assert_eq!(biome.name, "Test Biome");
+  // }
 }
 

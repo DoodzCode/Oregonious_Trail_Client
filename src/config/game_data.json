@@ -1,0 +1,23 @@
+{
+  "start_date": "April 15, 1842",
+  "game_length": 26,
+  "game_date": {
+    "week_number": 0,
+    "month": "April"
+  },
+  "biomes": [
+    {
+      "name": "Biome Uno"
+    },
+    {
+      "name": "Biome Dos"
+    },
+    {
+      "name": "Biome Tres"
+    }
+  ],
+  "segments": [],
+  "locations": [],
+  "parties": [],
+  "score": []
+}

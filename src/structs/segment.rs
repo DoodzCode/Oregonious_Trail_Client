@@ -1,7 +1,8 @@
 use core::fmt;
+use serde::{Serialize, Deserialize};
 
 /// struct for Segments (segments) of the trail
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Segment {
     pub name: String,
     pub distance: i32,      // 80

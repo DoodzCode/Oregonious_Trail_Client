@@ -6,13 +6,9 @@ extern crate chrono;
 
 use processors::conditions_processor::cycle_conditions;
 use processors::report_processor::status_report;
-use structs::{
-    game_state::GameState,
-    // biome::Biome,
-    // leg::Leg,
-    // location::Location,
-    // party::Party,
-};
+use structs::game_state::GameState;
+
+use utils::{d20, save_to_file, load_game_from_file};
 
 //TODO come back to the question of do we need territories to be separate?
 
@@ -23,10 +19,11 @@ fn main() {
     println!("-----------------------------------------------------------------------");
     println!();
 
-    // let mut game_data: Game_Data = Game_Data::create_game();
-    let mut game_data: GameState = GameState::create_game();
+    let mut game_data: GameState = load_game_from_file("src/config/game_data.json").expect("Failed to load game data");
 
     status_report(&mut game_data);
+
+    println!("{:?}", &game_data);
 
     // main loop
     loop {

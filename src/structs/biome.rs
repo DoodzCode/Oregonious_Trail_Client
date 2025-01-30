@@ -1,6 +1,7 @@
 use core::fmt;
+use serde::{Serialize, Deserialize};
 
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Biome {
     pub name: String,
 }

@@ -7,7 +7,7 @@ pub struct Biome {
     pub humidity_factor: u8,
     pub temperature_factor: u8,
     pub pressure_factor: u8,
-    pub b_type: BiomeType,
+    // pub b_type: BiomeType,
 }
 
 impl fmt::Display for Biome {

@@ -7,13 +7,22 @@
   },
   "biomes": [
     {
-      "name": "Biome Uno"
+      "name": "Biome Uno",
+      "humidity_factor": 5,
+      "temperature_factor": 5,
+      "pressure_factor": 5
     },
     {
-      "name": "Biome Dos"
+      "name": "Biome Dos",
+      "humidity_factor": 5,
+      "temperature_factor": 5,
+      "pressure_factor": 5
     },
     {
-      "name": "Biome Tres"
+      "name": "Biome Tres",
+      "humidity_factor": 5,
+      "temperature_factor": 5,
+      "pressure_factor": 5
     }
   ],
   "segments": [{

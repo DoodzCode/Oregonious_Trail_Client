@@ -24,12 +24,12 @@ pub fn get_input() -> String {
   String::from(input).to_lowercase()
 }
 
-pub fn party_to_proceed(mut party: Party) {
+pub fn party_to_proceed(party: &mut Party) {
   println!("{:?} decides to proceed.", party.name);
   party.increment_position(80);
 }
 
-pub fn party_to_delay(mut party: Party) {
+pub fn party_to_delay(party: &mut Party) {
   println!("{:?} decides to delay.", party.name)
 }
 

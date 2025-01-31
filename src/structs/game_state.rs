@@ -17,6 +17,7 @@ pub struct GameState {
 }
 
 impl GameState {
+    /* 
     pub fn create_game() -> GameState {
         let mut game_state = GameState {
             start_date: String::from("April 15, 1842"),
@@ -37,7 +38,7 @@ impl GameState {
         });
         game_state
     }
-
+    */
     pub fn change_state(&mut self, prop: Message) {
         match prop.action {
             ActionType::IncWeek => self.game_date.increment_week(),

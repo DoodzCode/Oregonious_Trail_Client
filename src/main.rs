@@ -1,4 +1,5 @@
 mod processors;
+mod controllers;
 mod structs;
 mod utils;
 
@@ -6,8 +7,11 @@ extern crate chrono;
 
 use processors::conditions_processor::cycle_conditions;
 use processors::report_processor::status_report;
-use structs::game_state::GameState;
+use controllers::decision_controller::{party_to_delay, party_to_proceed};
+// use controllers::decision_controller::party_to_delay;
+// use controllers::decision_controller::party_to_proceed;
 
+use structs::game_state::GameState;
 use utils::{d20, save_to_file, load_game_from_file, get_input};
 
 //TODO come back to the question of do we need territories to be separate?
@@ -36,16 +40,12 @@ fn main() {
         //cycle actions
         //* actions_processor();
         // user prompt - go or no go.
-        for party in &mut game_state.parties {
-            println!("{:?}", party.give_position());
+        for party in &game_state.parties {
             println!("{:?} do you want to 1. proceed or 2. delay?", party.name);
             let cmd: String = get_input();     
             match cmd.as_str() {
-                "1" => {
-                    println!("{:?} decides to proceed.", party.name);
-                    party.increment_position(350);
-                },
-                "2" => println!("{:?} decides to delay.", party.name),
+                "1" => party_to_proceed(party),
+                "2" => party_to_delay(party),       
                 _ => println!("Invalid Response")
             } 
         }

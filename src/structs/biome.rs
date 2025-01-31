@@ -4,6 +4,9 @@ use serde::{Serialize, Deserialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Biome {
     pub name: String,
+    pub humidity_factor: u8,
+    pub temperature_factor: u8,
+    pub pressure_factor: u8,
     pub b_type: BiomeType,
 }
 

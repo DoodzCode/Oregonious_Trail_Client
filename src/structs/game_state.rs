@@ -18,7 +18,7 @@ pub struct GameState {
 
 impl GameState {
     pub fn create_game() -> GameState {
-        let mut test_data = GameState {
+        let mut game_state = GameState {
             start_date: String::from("April 15, 1842"),
             game_length: 26,
             game_date: GameDate {
@@ -32,10 +32,10 @@ impl GameState {
             score: Vec::new(),
         };
 
-        test_data.biomes.push(Biome {
+        game_state.biomes.push(Biome {
             name: String::from("Biome Uno"),
         });
-        test_data
+        game_state
     }
 
     pub fn change_state(&mut self, prop: Message) {

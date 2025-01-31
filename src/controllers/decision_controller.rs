@@ -27,6 +27,7 @@ pub fn get_input() -> String {
 pub fn party_to_proceed(party: &mut Party) {
   println!("{:?} decides to proceed.", party.name);
   party.increment_position(80);
+  // party.position
 }
 
 pub fn party_to_delay(party: &mut Party) {

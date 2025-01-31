@@ -1,9 +1,9 @@
 use serde::{Serialize, Deserialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Party {
     pub name: String,
-    position: u16,
+    pub position: u16,
     pub head_count: u16,
     // pub wagons: Vec<Wagon>,
 }

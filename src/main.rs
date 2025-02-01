@@ -9,8 +9,6 @@ use std::collections::HashMap;
 use processors::conditions_processor::cycle_conditions;
 use processors::report_processor::status_report;
 use controllers::decision_controller::{party_to_delay, party_to_proceed};
-// use controllers::decision_controller::party_to_delay;
-// use controllers::decision_controller::party_to_proceed;
 
 use structs::{game_state::GameState, party};
 use utils::{d20, save_to_file, load_game_from_file, get_input};
@@ -29,17 +27,15 @@ fn main() {
 
     // main loop
     loop {
-        if game_state.game_date.week_number > game_state.game_length - 1 {
-            break;
-        }
+        if game_state.game_date.week_number > game_state.game_length - 1 { break; }
+        
+        //* conditions_processor -  cycle conditions
         cycle_conditions(&mut game_state);
-        // user prompt
-        
-        //* decision_controller();
-        //cycle actions
-        //* actions_processor();
-        
-        // user prompt - go or no go.
+
+        //* decision_controller - user prompt for commands
+        //* actions_processor - cycle actions    
+        //* decision_controller - user prompt - go or no go.
+
         let mut scores = HashMap::new();
 
         for party in &mut game_state.parties {
@@ -54,18 +50,21 @@ fn main() {
                 _ => println!("Invalid Response")
             } 
             scores.insert(party_name, party.position);
+        }   
+        game_state.score = scores;
 
-        }
         // decision_controller();
         // Global Report
+
         println!("");
-        for (key, value) in &scores {
+        for (key, value) in game_state.score.clone() {
             println!("{}: {}", key, value);
         }
-        line_break();
+        line_break();    
     }
     // shutdown
-}
+
+}    
 
 fn line_break() {
     println!(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");

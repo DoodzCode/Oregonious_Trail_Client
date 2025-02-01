@@ -4,9 +4,11 @@ use serde::{Serialize, Deserialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Biome {
     pub name: String,
-    pub humidity_factor: u8,
-    pub temperature_factor: u8,
-    pub pressure_factor: u8,
+    pub hightemp_heat: u16,             // heat expressed in degrees C' / F'
+    pub hightemp_time: u16,             // time expressed as the day of the year
+    pub lowtemp_heat: u16,
+    pub lowtemp_time: u16,
+    pub base_humidity: u16,             // base humidity same all year - modified by temp
     // pub b_type: BiomeType,
 }
 
@@ -36,3 +38,4 @@ impl BiomeType {
         }
     }
 }
+

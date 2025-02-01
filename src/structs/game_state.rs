@@ -1,7 +1,9 @@
 // use crate::processors::game_generator::generate_segments;
 use crate::structs::{biome::Biome, segment::Segment, location::Location, party::Party};
 use std::fmt::{self, write};
+use std::collections::HashMap;
 use serde::{Serialize, Deserialize};
+
 
 /// GameState - conditions (states) that are not influenced by the conditions of the trail (biomes, segments), or the parties (wagons, people, animals).
 #[derive(Serialize, Deserialize, Debug)]
@@ -13,7 +15,7 @@ pub struct GameState {
     pub segments: Vec<Segment>,
     pub locations: Vec<Location>,
     pub parties: Vec<Party>,
-    pub score: Vec<Player_Score>,
+    pub score: HashMap<String, u16>
 }
 
 impl GameState {
@@ -54,7 +56,8 @@ impl fmt::Display for GameState {
         write!(format, "start_date: {} \n", self.start_date)?;
         write!(format, "game_length: {} \n", self.game_length)?;
         write!(format, "game_date.week_number: {} \n", self.game_date.week_number)?;
-        write!(format, "game_date.month: {} \n", self.game_date.month)?;
+        write!(format, "game_date.day_of_year: {} \n", self.game_date.day_of_year)?;
+    //  write!(format, "game_date.month: {} \n", self.game_date.month)?;
 
         writeln!(format, "Biomes:")?;
         for biome in &self.biomes {
@@ -66,12 +69,15 @@ impl fmt::Display for GameState {
             writeln!(format, " {}", leg)?;
         }
 
+        /*
         writeln!(format, "Player_Score:")?;
         for score in &self.score {
-            writeln!(format, " {}", score)?;
+            writeln!(format, " {:?}", score)?;
         }
+        */
 
         Ok(())
+
     }
 }
 pub struct Message {
@@ -93,8 +99,9 @@ pub enum ActionType {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct GameDate {
+    pub day_of_year: u16,
     pub week_number: u8,
-    pub month: String,
+    // pub month: String,
 }
 
 impl GameDate {
@@ -105,6 +112,8 @@ impl GameDate {
 }
 
 // score
+
+/* 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Player_Score {
     pub party_name: String,
@@ -132,3 +141,4 @@ impl fmt::Display for Player_Score {
         write!(f, "Player_Score.party_name: {} \n Player_Score.position: {} \n Player_Score.head_count: {} \n", self.party_name, self.position, self.head_count)
     }
 }
+*/

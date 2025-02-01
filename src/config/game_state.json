@@ -2,28 +2,59 @@
   "start_date": "April 15, 1842",
   "game_length": 26,
   "game_date": {
-    "week_number": 0,
-    "month": "April"
+    "day_of_year": 91,
+    "week_number": 0
   },
+  "score": {},
   "biomes": [
     {
-      "name": "Biome Uno",
-      "humidity_factor": 5,
-      "temperature_factor": 5,
-      "pressure_factor": 5
+      "name": "Great Plains",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
     },
     {
-      "name": "Biome Dos",
-      "humidity_factor": 5,
-      "temperature_factor": 5,
-      "pressure_factor": 5
+      "name": "Rocky Mountains",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
     },
     {
-      "name": "Biome Tres",
-      "humidity_factor": 5,
-      "temperature_factor": 5,
-      "pressure_factor": 5
-    }
+      "name": "High Desert",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    },
+    {
+      "name": "Blue Mountains",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    },
+    {
+      "name": "Columbia Basin",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    },
+    {
+      "name": "Cascade Mountains",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    }    
   ],
   "segments": [{
     "name": "Seg 1",
@@ -53,6 +84,5 @@
       "position": 300,
       "head_count": 140
     }
-  ],
-  "score": []
+  ]
 }

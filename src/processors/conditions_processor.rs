@@ -5,8 +5,8 @@ use crate::structs::game_state::{GameState, ActionType, Message};
 // let current_date = start_date + "00".to_string();
 
 pub fn cycle_conditions(game_state: &mut GameState) {
-    // calandar
     
+    // calandar
     game_state.change_state(Message{
         action: ActionType::IncWeek,
     });
@@ -14,7 +14,11 @@ pub fn cycle_conditions(game_state: &mut GameState) {
     // let mut week: u8 = game_state::GameDate::increment_week(&mut self);
     println!("Week # {}", game_state.game_date.week_number);
 
+
     // biomes
+
+
+
 
     // determine which biomes have player in them
 

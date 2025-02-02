@@ -10,9 +10,10 @@ pub fn cycle_conditions(game_state: &mut GameState) {
     game_state.change_state(Message{
         action: ActionType::IncWeek,
     });
+    game_state.game_date.day_of_year += 7;
 
     // let mut week: u8 = game_state::GameDate::increment_week(&mut self);
-    println!("Week # {}", game_state.game_date.week_number);
+    println!("Week # {} | DOY {} \n", game_state.game_date.week_number, game_state.game_date.day_of_year);
 
 
     // biomes

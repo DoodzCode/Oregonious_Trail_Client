@@ -9,7 +9,7 @@ use serde::{Serialize, Deserialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct GameState {
     pub start_date: String,
-    pub game_length: u8,
+    pub g_duration: u16,
     pub game_date: GameDate,
     pub biomes: Vec<Biome>,
     pub segments: Vec<Segment>,
@@ -49,12 +49,10 @@ impl GameState {
 
     pub fn change_party_state(prop: Message) {}
     pub fn read_state() {}
-}
 
-impl fmt::Display for GameState {
     fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
         write!(format, "start_date: {} \n", self.start_date)?;
-        write!(format, "game_length: {} \n", self.game_length)?;
+        write!(format, "game_length: {} \n", self.g_duration)?;
         write!(format, "game_date.week_number: {} \n", self.game_date.week_number)?;
         write!(format, "game_date.day_of_year: {} \n", self.game_date.day_of_year)?;
     //  write!(format, "game_date.month: {} \n", self.game_date.month)?;
@@ -100,7 +98,7 @@ pub enum ActionType {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct GameDate {
     pub day_of_year: u16,
-    pub week_number: u8,
+    pub week_number: u16,
     // pub month: String,
 }
 

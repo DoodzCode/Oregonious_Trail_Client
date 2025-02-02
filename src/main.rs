@@ -8,7 +8,7 @@ extern crate chrono;
 use std::collections::HashMap;
 use processors::conditions_processor::cycle_conditions;
 use processors::report_processor::status_report;
-use controllers::decision_controller::{party_to_delay, party_to_proceed};
+use controllers::decision_controller::{self, party_to_delay, party_to_proceed};
 
 use structs::{game_state::GameState, party};
 use utils::{d20, save_to_file, load_game_from_file, get_input};
@@ -23,11 +23,11 @@ fn main() {
     
     let mut game_state: GameState = load_game_from_file("src/config/game_state.json").expect("Failed to load game data");
     status_report(&mut game_state);
-    println!("{:?}", &game_state);
+    println!("{:#?}", &game_state);
 
     // main loop
     loop {
-        if game_state.game_date.week_number > game_state.game_length - 1 { break; }
+        if game_state.game_date.week_number > game_state.g_duration - 1 { break; }
         
         //* conditions_processor -  cycle conditions
         cycle_conditions(&mut game_state);
@@ -36,10 +36,11 @@ fn main() {
         //* actions_processor - cycle actions    
         //* decision_controller - user prompt - go or no go.
 
-        let mut scores = HashMap::new();
+        decision_controller::captains_orders(&mut game_state);
 
+        /*
         for party in &mut game_state.parties {
-            println!("{:?} do you want to 1. proceed or 2. delay?", party.name);
+            print!("{:?} do you want to 1. proceed or 2. delay?", party.name);
             let cmd: String = get_input();     
             let party_name = party.name.clone();
             match cmd.as_str() {
@@ -51,7 +52,7 @@ fn main() {
             } 
             scores.insert(party_name, party.position);
         }   
-        game_state.score = scores;
+        */
 
         // decision_controller();
         // Global Report

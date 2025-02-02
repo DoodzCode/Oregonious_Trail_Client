@@ -1,0 +1,88 @@
+{
+  "start_date": "April 15, 1842",
+  "g_duration": 26,
+  "game_date": {
+    "day_of_year": 91,
+    "week_number": 0
+  },
+  "score": {},
+  "biomes": [
+    {
+      "name": "Great Plains",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    },
+    {
+      "name": "Rocky Mountains",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    },
+    {
+      "name": "High Desert",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    },
+    {
+      "name": "Blue Mountains",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    },
+    {
+      "name": "Columbia Basin",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    },
+    {
+      "name": "Cascade Mountains",
+      "hightemp_heat": 95,
+      "hightemp_time": 180,
+      "lowtemp_heat": 28,
+      "lowtemp_time": 12,
+      "base_humidity": 4
+    }    
+  ],
+  "segments": [{
+    "name": "Seg 1",
+    "distance": 80,
+    "guide_note": "west by north to Kansas River Crossing"
+  }],
+  "locations": [
+    {
+      "name": "Test Location 1",
+      "elevation": 600,
+      "mile_marker": 300
+    }
+  ],
+  "parties": [
+    {
+      "name": "Red Party",
+      "position": 300,
+      "head_count": 140
+    },
+    {
+      "name": "Blue Party",
+      "position": 300,
+      "head_count": 140
+    },
+    {
+      "name": "Green Party",
+      "position": 300,
+      "head_count": 140
+    }
+  ]
+}

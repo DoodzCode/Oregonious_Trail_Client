@@ -34,6 +34,8 @@ pub fn game_loop() {
     // main loop
     loop {
         if game_state.game_date.week_number > game_state.g_duration - 1 { break; }
+
+        // send_to_all_players(&players, "Test Message.").await;
         
         //* conditions_processor -  cycle conditions
         cycle_conditions(&mut game_state);

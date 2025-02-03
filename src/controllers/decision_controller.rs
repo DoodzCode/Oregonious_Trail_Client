@@ -33,11 +33,11 @@ pub fn captains_orders(game_state: &mut GameState) {
   let mut scores = HashMap::new();
 
   for party in &mut game_state.parties {
-    print!("{:?} do you want to 1. proceed or 2. delay?", party.name);
+    print!("{:?} do you want to 1. proceed or 2. delay?", &party.name);
     io::stdout().flush().unwrap();
     
     let cmd: String = utils::get_input();     
-    let party_name = party.name.clone();
+    let party_name = String::from(&party.name);
     match cmd.as_str() {
         "1" => party_to_proceed(party), 
         

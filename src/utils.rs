@@ -34,6 +34,10 @@ pub fn get_input() -> String {
     String::from(input).to_lowercase()
 }
 
+pub fn line_break() {
+  println!(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+  println!();
+}
 
 
 #[cfg(test)]

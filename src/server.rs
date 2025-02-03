@@ -11,20 +11,20 @@ const PLAYER_AMOUNT: usize = 2;
 pub type PlayerCollection = HashMap<SocketAddr, TcpStream>;
 
 
-pub async fn wait_for_players(port: u16) -> PlayerCollection {
+pub async fn wait_for_players(number_of_players: u16, port: u16) -> PlayerCollection {
     let listener = TcpListener::bind(("127.0.0.1", port))
         .await
         .expect("Could not bind to port");
 
     let mut players: PlayerCollection = HashMap::new();
 
-    println!("[SERVER] Waiting for {} players to connect on port {}...", PLAYER_AMOUNT, port);
+    println!("[SERVER] Waiting for {} players to connect on port {}...", number_of_players, port);
 
-    while players.len() < PLAYER_AMOUNT {
+    while players.len() < number_of_players as usize{
         match listener.accept().await {
             Ok((stream, addr)) => {
                 players.insert(addr, stream);
-                println!("[PLAYER CONNECTED] {}/{} players connected.", &players.len(), PLAYER_AMOUNT);
+                println!("[PLAYER CONNECTED] {}/{} players connected.", &players.len(), number_of_players);
             }
             Err(e) => {
                 println!("[ERROR] Could not accept connection: {}", e);

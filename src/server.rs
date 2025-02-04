@@ -1,19 +1,19 @@
 use std::collections::HashMap;
-use std::net::SocketAddr;
-use std::sync::Arc;
-use tokio::io::AsyncWriteExt;
-use tokio::net::{TcpListener, TcpStream};
-use tokio::sync::Mutex;
+use std::net::{TcpListener, TcpStream, SocketAddr};
+// use tokio::net::{TcpListener, TcpStream};
 
-const PLAYER_AMOUNT: usize = 2;
 
-// pub type PlayerCollection = Arc<Mutex<HashMap<SocketAddr, TcpStream>>>;
 pub type PlayerCollection = HashMap<SocketAddr, TcpStream>;
 
+#[derive(Debug)]
+pub enum ServerStatus {
+    WaitingForHost,
+    Busy,
+    Idle,
+}
 
-pub async fn wait_for_players(number_of_players: u16, port: u16) -> PlayerCollection {
-    let listener = TcpListener::bind(("127.0.0.1", port))
-        .await
+pub fn wait_for_players(number_of_players: u16, port: u16) -> PlayerCollection {
+    let listener = TcpListener::bind(("0.0.0.0", port))
         .expect("Could not bind to port");
 
     let mut players: PlayerCollection = HashMap::new();
@@ -21,7 +21,7 @@ pub async fn wait_for_players(number_of_players: u16, port: u16) -> PlayerCollec
     println!("[SERVER] Waiting for {} players to connect on port {}...", number_of_players, port);
 
     while players.len() < number_of_players as usize{
-        match listener.accept().await {
+        match listener.accept() {
             Ok((stream, addr)) => {
                 players.insert(addr, stream);
                 println!("[PLAYER CONNECTED] {}/{} players connected.", &players.len(), number_of_players);
@@ -37,19 +37,3 @@ pub async fn wait_for_players(number_of_players: u16, port: u16) -> PlayerCollec
     players
 
 }
-
-// pub async fn send_to_all_players(players: &PlayerCollection, message: &str) {
-//     println!("Sending message to all players: {}", message);
-
-//     let mut players_lock = players.lock().await;
-//     for (_, player) in players_lock.iter_mut() {
-//         let _ = player.write_all(message.as_bytes()).await;
-//     }
-// }
-// pub async fn send_to_all_players(players: &PlayerCollection, message: &str) {
-//     println!("Sending message to all players: {}", message);
-//     let mut players_lock = players.lock().await;
-//     for (_, player) in players_lock.iter_mut() {
-//         let _ = player.write_all(message.as_bytes()).await;
-//     }
-// }

@@ -10,6 +10,7 @@ pub type PlayerCollection = HashMap<SocketAddr, TcpStream>;
 #[derive(Debug, PartialEq)]
 pub enum ServerStatus {
     WaitingForHost,
+    WaitingForPlayers,
     Busy,
     Idle,
     Active,

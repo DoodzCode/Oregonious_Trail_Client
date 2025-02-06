@@ -1,8 +1,5 @@
 use std::io::Write;
-use crate::server::wait_for_players;
-use std::sync::{Arc, Mutex};
-
-
+use serde_json;
 use crate::processors::{
     report_processor::status_report,
     conditions_processor::cycle_conditions
@@ -21,39 +18,25 @@ use crate::utils::{
 
 
 
-pub fn game_loop(number_of_players: u16, server_status: &Arc<Mutex<ServerStatus>>) {
+pub fn game_loop(number_of_players: &u16, players: &mut PlayerCollection) {
 
-    
-    
     // startup
     println!();
     println!("setup:");
     line_break();
     
-    // Unlock the mutex and get access to the server status across threads
-    let mut server_status_lock = server_status.lock().unwrap();
-    // Dereference the mutex and reassign the value to the server status
-    *server_status_lock = ServerStatus::WaitingForHost;
-    drop(server_status_lock);
-
-
-    let mut players: PlayerCollection = wait_for_players(number_of_players, 5000);
-
-    for (addr, _) in players.iter() {
-        println!("[PLAYER] {} is ready!", addr);
-    }
-
-
-
     let mut game_state: GameState = load_game_from_file("src/config/game_state.json").expect("Failed to load game data");
     status_report(&mut game_state);
     println!("{:#?}", &game_state);
 
+    // Serialize the game_state
+    let serialized_game_state = serde_json::to_string(&game_state).expect("Failed to serialize game state");
 
-    // These lines could be moved to the Sever struct?
-    server_status_lock = server_status.lock().unwrap();
-    *server_status_lock = ServerStatus::Active;
-    drop(server_status_lock);
+    // Broadcast the serialized game_state to all players
+    for (_, player) in players.iter_mut() {
+        let _ = player.write_all(serialized_game_state.as_bytes());
+    }
+    
 
     // main loop
     loop {

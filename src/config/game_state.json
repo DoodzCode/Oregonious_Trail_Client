@@ -57,15 +57,100 @@
     }    
   ],
   "segments": [{
-    "name": "Seg 1",
-    "distance": 80,
-    "guide_note": "west by north to Kansas River Crossing"
-  }],
+    "id": "P01A",
+    "name": "Santa Fe Trail",
+    "distance": 38,
+    "guide_note": "West by northwest to Kansas River Crossing"
+  },
+  {
+    "id": "P02A",
+    "name": "Kansas River",
+    "distance": 48,
+    "guide_note": "West by northwest to Kansas River Crossing"
+  },
+  {
+    "id": "P03A",
+    "name": "Unorganized Territory",
+    "distance": 225,
+    "guide_note": "North by northwest to the Platte River"
+  },
+  {
+    "id": "P04A",
+    "name": "Platte River",
+    "distance": 96,
+    "guide_note": "West alomg the Platte River."
+  }
+  ],
   "locations": [
     {
-      "name": "Test Location 1",
-      "elevation": 600,
-      "mile_marker": 300
+      "id": "L03",
+      "name": "Independence",
+      "l_type": "town",
+      "elevation": 863,
+      "mile_marker": 0
+    },
+    {
+      "id": "L04",
+      "name": "Oregon Trailhead",
+      "l_type": "trail",
+      "elevation": 1063,
+      "mile_marker": 38
+    },
+    {
+      "id": "L08",
+      "name": "Kansas River Crossing",
+      "l_type": "river crossing",
+      "elevation": 938,
+      "mile_marker": 86
+    },
+    {
+      "id": "L11",
+      "name": "Platte River / Fort Kearny",
+      "l_type": "fort",
+      "elevation": 2152,
+      "mile_marker": 311
+    },
+    {
+      "id": "L09",
+      "name": "Platte River Junction",
+      "l_type": "trail",
+      "elevation": 2805,
+      "mile_marker": 407
+    },
+    {
+      "id": "L10",
+      "name": "North Fork Crossover",
+      "l_type": "river crossing",
+      "elevation": 3925,
+      "mile_marker": 493
+    },
+    {
+      "id": "L12",
+      "name": "Chimney Rock",
+      "l_type": "trail",
+      "elevation": 4073,
+      "mile_marker": 563
+    },
+    {
+      "id": "L14",
+      "name": "Fort Laramie",
+      "l_type": "fort",
+      "elevation": 4229,
+      "mile_marker": 635
+    },
+    {
+      "id": "L13",
+      "name": "Independence Rock",
+      "l_type": "trail",
+      "elevation": 5994,
+      "mile_marker": 791
+    },
+    {
+      "id": "L16",
+      "name": "South Pass",
+      "l_type": "mountain pass",
+      "elevation": 7606,
+      "mile_marker": 887
     }
   ],
   "parties": [

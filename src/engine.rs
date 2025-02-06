@@ -1,4 +1,8 @@
-use std::collections::HashMap;
+use std::io::Write;
+use crate::server::wait_for_players;
+use std::sync::{Arc, Mutex};
+
+
 use crate::processors::{
     report_processor::status_report,
     conditions_processor::cycle_conditions
@@ -8,32 +12,57 @@ use crate::controllers::decision_controller::{
     party_to_delay, 
     party_to_proceed
 };
-use crate::structs::{
-    game_state::GameState, 
-    party
-};
+use crate::server::{PlayerCollection, ServerStatus};
+use crate::structs::game_state::GameState;
 use crate::utils::{
-    d20, 
-    save_to_file,
     load_game_from_file,
-    get_input,
     line_break
 };
 
-pub fn game_loop() {
 
+
+pub fn game_loop(number_of_players: u16, server_status: &Arc<Mutex<ServerStatus>>) {
+
+    
+    
     // startup
     println!();
     println!("setup:");
     line_break();
     
+    // Unlock the mutex and get access to the server status across threads
+    let mut server_status_lock = server_status.lock().unwrap();
+    // Dereference the mutex and reassign the value to the server status
+    *server_status_lock = ServerStatus::WaitingForHost;
+    drop(server_status_lock);
+
+
+    let mut players: PlayerCollection = wait_for_players(number_of_players, 5000);
+
+    for (addr, _) in players.iter() {
+        println!("[PLAYER] {} is ready!", addr);
+    }
+
+
+
     let mut game_state: GameState = load_game_from_file("src/config/game_state.json").expect("Failed to load game data");
     status_report(&mut game_state);
     println!("{:#?}", &game_state);
 
+
+    // These lines could be moved to the Sever struct?
+    server_status_lock = server_status.lock().unwrap();
+    *server_status_lock = ServerStatus::Active;
+    drop(server_status_lock);
+
     // main loop
     loop {
         if game_state.game_date.week_number > game_state.g_duration - 1 { break; }
+
+        // Broadcast message to all players
+        for (_, player) in players.iter_mut() {
+            let _ = player.write_all("[SERVER BROADCAST] Test Message".as_bytes());
+        }
         
         //* conditions_processor -  cycle conditions
         cycle_conditions(&mut game_state);

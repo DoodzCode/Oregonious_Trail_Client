@@ -1,7 +1,5 @@
-use std::collections::HashMap;
 use std::io::Write;
-// use tokio::io::AsyncWriteExt;
-use crate::server::{self, wait_for_players};
+use crate::server::wait_for_players;
 use std::sync::{Arc, Mutex};
 
 
@@ -17,10 +15,7 @@ use crate::controllers::decision_controller::{
 use crate::server::{PlayerCollection, ServerStatus};
 use crate::structs::game_state::GameState;
 use crate::utils::{
-    d20, 
-    save_to_file,
     load_game_from_file,
-    get_input,
     line_break
 };
 
@@ -66,10 +61,8 @@ pub fn game_loop(number_of_players: u16, server_status: &Arc<Mutex<ServerStatus>
 
         // Broadcast message to all players
         for (_, player) in players.iter_mut() {
-            let _ = player.write_all("Test Message".as_bytes());
-            // let _ = player.write_all(b"Test Message.").await;
+            let _ = player.write_all("[SERVER BROADCAST] Test Message".as_bytes());
         }
-        // send_to_all_players(&players, "Test Message.").await;
         
         //* conditions_processor -  cycle conditions
         cycle_conditions(&mut game_state);

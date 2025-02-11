@@ -1,14 +1,10 @@
-mod controllers;
-mod engine;
-mod processors;
-mod server;
-mod structs;
 mod utils;
-mod client;
+mod structs;
 
-use client::client::game_client;
+use crate::structs::Client;
 
-#[tokio::main]
-async fn main() {
-        game_client();
+fn main() {
+    println!("Welcome to the game!");
+    
+    Client::start();
 }

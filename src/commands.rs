@@ -9,13 +9,12 @@ struct Command {
   arguments: Vec<String>,
 }
 
-pub fn say(cmd: (&str, Vec<&str>), tcp_stream: &mut TcpStream) {
+pub fn say(cmd: (String, String), tcp_stream: &mut TcpStream) {
   let cmd  = Command {
     name: cmd.0.to_string(),
-    arguments: cmd.1.iter().map(|s| s.to_string()).collect(),
+    arguments: vec![cmd.1.to_string()],
   };
   let msg = serde_json::to_string(&cmd).unwrap();
 
   tcp_stream.write(msg.as_bytes()).unwrap();
-
 }

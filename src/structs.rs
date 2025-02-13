@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use std::f32::consts::E;
 use std::fs::{remove_file, File};
 use std::io::{self, stdin, stdout, BufReader, Write};
 use std::net::{TcpStream, ToSocketAddrs};
@@ -22,7 +23,7 @@ enum ClientStatus {
     Inactive,
 }
 
-type Command = (String, Vec<String>);
+type Command = (String, String);
 
 pub struct Client {
     status: ClientStatus,
@@ -94,65 +95,84 @@ impl Client {
     fn handle_waiting_commands(&mut self) {
         self.print_hud();
         let user_input = Client::prompt_user("What would you like to do?");
-        let tokens = user_input.split_whitespace().collect::<Vec<&str>>();
-        let cmd = (tokens[0], tokens[1..].to_vec());
+        
+        match user_input {
+          Ok(user_input) => {
+            let cmd = Client::parse_to_command(user_input);
 
-        match cmd.0 {
-            "exit" => {
+            match cmd.0.as_str() {
+              "exit" => {
                 self.status = ClientStatus::Inactive;
-            }
-            "status" => {
+              },
+              "status" => {
                 self.print_status();
-            }
-            "say" => {
+              },
+              "say" => {
                 commands::say(cmd, &mut self.tcp_stream);
+              },
+              _ => {
+                let msg: String = serde_json::to_string(&cmd).unwrap();
+                self.tcp_stream.write(msg.as_bytes()).unwrap();
+              }
             }
-            _ => {
-                self.tcp_stream.write(user_input.as_bytes()).unwrap();
-                // println!("Invalid command.");
-            }
+          },
+          Err(e) => {
+            println!("Error: {}", e);
+          }
         }
-    }
+
+
+
+        }
 
     fn handle_issue_task_orders(&mut self) {
         self.print_hud();
-        let user_input = Client::prompt_user("What task would you like to issue?");
-        let tokens = user_input.split_whitespace().collect::<Vec<&str>>();
-
-        match tokens[0] {
-            "gather" => {
-                self.print_status();
-            }
-            _ => {
-                println!("Invalid command.");
-            }
-        }
     }
 
-    fn prompt_user(prompt: &str) -> String {
+    fn prompt_user(prompt: &str) -> Result<String, io::Error> {
         print!("{}: ", prompt);
         stdout().flush().unwrap();
         let mut response: String = String::new();
         stdin().read_line(&mut response).unwrap();
-        response.trim().to_string()
+        Ok(response.trim().to_string())
     }
 
     fn prompt_host_ip() -> String {
-        let response: String = Client::prompt_user("What is the host address?");
-        if response.is_empty() {
-            return String::from("127.0.0.1");
-        } else {
-            return response;
+      loop {
+        let response = Client::prompt_user("What is the host address?");
+        
+        match response {
+          Ok(response) => {
+            if response.is_empty() {
+              return String::from("127.0.0.1");
+            } else {
+              return response;
+            }
+          },
+          Err(e) => {
+            println!("Error: {}", e);
+          }
         }
+      }
     }
 
     fn prompt_host_port() -> String {
-        let response: String = Client::prompt_user("What is the host port?");
-        if response.is_empty() {
-            return String::from("3000");
-        } else {
-            return response;
+      loop {
+        let response:Result<String, io::Error>  = Client::prompt_user("What is the host port?");
+        
+        match response {
+          Ok(response) => {
+            if response.is_empty() {
+              return String::from("3000");
+            } else {
+              return response;
+            }
+          },
+          Err(e) => {
+            println!("Error: {}", e);
+          }
         }
+      }
     }
 
     fn load_player_from_file(filename: &str) -> serde_json::Result<PlayerProfile> {
@@ -161,4 +181,14 @@ impl Client {
         let player_profile: PlayerProfile = serde_json::from_reader(reader)?;
         Ok(player_profile)
     }
-}
+
+    fn parse_to_command(input: String) -> (String, String) {
+      match input.find(" ") {
+        Some(index)  => {
+          let ( cmd_name, cmd_args ) = input.split_at(index);
+          (String::from(cmd_name), String::from(cmd_args))
+        },
+        None => (input, String::from("")),
+      }
+    }
+  }

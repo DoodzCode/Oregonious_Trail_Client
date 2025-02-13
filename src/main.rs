@@ -1,5 +1,6 @@
 mod utils;
 mod structs;
+mod commands;
 
 use crate::structs::Client;
 

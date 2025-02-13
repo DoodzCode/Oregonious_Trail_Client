@@ -3,6 +3,8 @@ use std::net::{TcpStream, ToSocketAddrs};
 use std::io::{self, BufReader, Write, stdout, stdin};
 use std::fs::{remove_file, File};
 
+use crate::commands;
+
 const PORT: u16 = 3000;
 
 
@@ -20,6 +22,8 @@ enum ClientStatus {
   IssuingCaptainsOrders,
   Inactive,
 }
+
+type Command = (String, Vec<String>);
 
 pub struct Client {
   status: ClientStatus,
@@ -92,13 +96,18 @@ impl Client {
   fn handle_waiting_commands(&mut self) {
     self.print_hud();
     let user_input = Client::prompt_user("What would you like to do?");
+    let tokens = user_input.split_whitespace().collect::<Vec<&str>>();
+    let cmd = (tokens[0], tokens[1..].to_vec());
 
-    match user_input.as_str() {
+    match cmd.0 {
       "exit" => {
         self.status = ClientStatus::Inactive;
       },
       "status" => {
         self.print_status();
+      },
+      "say" => {
+        commands::say(cmd, &mut self.tcp_stream);
       },
       _ => {
         self.tcp_stream.write(user_input.as_bytes()).unwrap();
@@ -110,8 +119,10 @@ impl Client {
   fn handle_issue_task_orders(&mut self) {
     self.print_hud();
     let user_input = Client::prompt_user("What task would you like to issue?");
+    let tokens = user_input.split_whitespace().collect::<Vec<&str>>();
 
-    match user_input.as_str() {
+
+    match tokens[0] {
       "gather" => {
         self.print_status();
       },

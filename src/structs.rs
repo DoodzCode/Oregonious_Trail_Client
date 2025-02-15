@@ -23,7 +23,6 @@ enum ClientStatus {
     Inactive,
 }
 
-type Command = (String, String);
 
 pub struct Client {
     status: ClientStatus,

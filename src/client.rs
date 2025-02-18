@@ -59,6 +59,7 @@ impl Client {
 
     fn run(&mut self) {
         loop {
+            self.print_hud();
             match self.status {
                 ClientStatus::Waiting => {
                     // Waiting for signal from server
@@ -66,11 +67,12 @@ impl Client {
                     // self.status = ClientStatus::IssuingTasksOrders;
                 }
                 ClientStatus::IssuingTasksOrders => {
-                    InputHandler::handle_issue_task_orders();
+                    InputHandler::handle_assignment_orders();
                     // self.status = ClientStatus::Waiting;
                 }
                 ClientStatus::IssuingCaptainsOrders => {
-                    let cmd: Result<Command<bool>, String> = InputHandler::handle_issue_captains_orders();
+                    
+                    let cmd: Result<Command<bool>, String> = InputHandler::handle_captains_orders();
                     match cmd {
                         Ok(cmd) => {
                             commands::proceed(cmd, &mut self.tcp_stream);

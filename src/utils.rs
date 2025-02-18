@@ -1,4 +1,4 @@
-use crate::structs::PlayerProfile;
+use crate::client::PlayerProfile;
 use std::fs::{remove_file, File};
 use std::io::{stdin, BufReader, Write};
 

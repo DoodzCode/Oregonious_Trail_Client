@@ -1,11 +1,11 @@
 mod utils;
-mod structs;
+mod client;
 mod commands;
+mod input_handler;
 
-use crate::structs::Client;
+use crate::client::Client;
 
 fn main() {
     println!("Welcome to the game!");
-    
     Client::start();
 }

@@ -1,12 +1,13 @@
 use serde::{Deserialize, Serialize};
 use std::f32::consts::E;
 use std::fs::{remove_file, File};
-use std::io::{self, stdin, stdout, BufReader, Write};
+use std::io::{self, stdin, stdout, BufReader, Read, Write};
 use std::net::{TcpStream, ToSocketAddrs};
 
-use crate::commands;
-use crate::commands::Command;
-use crate::input_handler::InputHandler;
+// use crate::commands;
+// use crate::commands::Command;
+// use crate::input_handler::InputHandler;
+use crate::utils;
 
 const PORT: u16 = 3000;
 
@@ -58,36 +59,77 @@ impl Client {
     }
 
     fn run(&mut self) {
+        let mut stream_copy: TcpStream = self
+            .tcp_stream
+            .try_clone()
+            .expect("could not clone the stream");
+
+        // launch input handler?
+        // launch server handler?
+
         loop {
             self.print_hud();
-            match self.status {
-                ClientStatus::Waiting => {
-                    // Waiting for signal from server
-                    let cmd = InputHandler::handle_waiting_commands();
-                    // self.status = ClientStatus::IssuingTasksOrders;
-                }
-                ClientStatus::IssuingTasksOrders => {
-                    InputHandler::handle_assignment_orders();
-                    // self.status = ClientStatus::Waiting;
-                }
-                ClientStatus::IssuingCaptainsOrders => {
-                    
-                    let cmd: Result<Command<bool>, String> = InputHandler::handle_captains_orders();
-                    match cmd {
-                        Ok(cmd) => {
-                            commands::proceed(cmd, &mut self.tcp_stream);
-                            // self.status = ClientStatus::Waiting; //! Uncomment this line to return to waiting status
-                        }
-                        Err(e) => {
-                            println!("Error: {}", e);
-                        }
-                    }
-                }
-                ClientStatus::Inactive => {
-                    break;
-                }
-                _ => {}
+
+            // ask user what they want to do?
+            /*
+                1. Report
+                2. Give Assignment Orders ( If Available )
+                3. Give Captain's Orders ( If Available )
+
+
+            
+            
+             */
+
+
+            // match self.status {
+            //     ClientStatus::Waiting => {
+
+            //         // Waiting for signal from server
+
+            //         // let cmd: Command<String> = InputHandler::handle_waiting_commands();
+            //         // self.status = ClientStatus::IssuingTasksOrders;
+            //     }
+            //     ClientStatus::IssuingTasksOrders => {
+            //         InputHandler::handle_assignment_orders();
+            //         // self.status = ClientStatus::Waiting;
+            //     }
+            //     ClientStatus::IssuingCaptainsOrders => {
+            //         let input: String = utils::prompt_user("What are your orders?");
+            //         let (cmd, args) = Client::split_input(input);
+
+            //         let cmd_fn = self.match_command(cmd, args);
+
+            //                             // let cmd: Result<Command<bool>, String> = InputHandler::handle_captains_orders();
+            //     }
+            //     ClientStatus::Inactive => {
+            //         break;
+            //     }
+            //     _ => {}
+            // }
+        }
+    }
+
+    fn match_command(&self, cmd: String, args: String) {
+        match cmd.as_str() {
+            "order" => {
+                let argv: Vec<&str> = args.split_whitespace().collect();
+
+            },
+            "report" => {},
+            _ => {
+                println!("Invalid command");
             }
+        }
+    }
+
+    fn split_input(input: String) -> (String, String) {
+        match input.find(" ") {
+            Some(index) => {
+                let (cmd, args) = input.split_at(index);
+                (String::from(cmd), String::from(args))
+            }
+            None => (input, String::from(""))
         }
     }
 
@@ -110,4 +152,30 @@ impl Client {
         let player_profile: PlayerProfile = serde_json::from_reader(reader)?;
         Ok(player_profile)
     }
+}
+
+#[derive(Debug, Serialize)]
+struct Order<T> {
+    directive: Directive,
+    value: String,
+    arguments: Vec<T>
+}
+
+
+impl <T>Order<T> {
+    pub fn new(dir_raw: String, arguments: Vec<String>) -> Self {
+        match dir_raw.as_str() {
+            "proceed" => Order { directive: Directive::Proceed, arguments: vec![true] },
+            "delay" => Order { directive: Directive::Proceed, arguments: vec![false]}
+        }
+    }
+
+    pub fn serialize(&self) -> String {
+        serde_json::to_string(self).unwrap()
+    }
+}
+
+#[derive(Debug, Serialize)]
+enum Directive {
+    Proceed,
 }
